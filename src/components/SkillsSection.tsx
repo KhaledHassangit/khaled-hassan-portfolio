@@ -1,28 +1,11 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
-const categories = [
-  {
-    title: "Frontend Core",
-    skills: ["React.js", "Next.js", "TypeScript", "JavaScript (ES6+)", "HTML5", "CSS3"],
-  },
-  {
-    title: "State & Data",
-    skills: ["Redux", "Redux Toolkit", "RTK Query", "React Query"],
-  },
-  {
-    title: "UI & Styling",
-    skills: ["Tailwind CSS", "ShadCN UI", "Mantine UI", "Material UI", "Bootstrap"],
-  },
-  {
-    title: "Tools",
-    skills: ["Git", "GitHub", "Vite", "Webpack", "Figma"],
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const SkillsSection = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section id="skills" className="section-padding bg-card/30" ref={ref}>
@@ -33,16 +16,16 @@ const SkillsSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <p className="text-sm font-mono text-primary mb-3">// skills</p>
+          <p className="text-sm font-mono text-primary mb-3">{t.skills.label}</p>
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Tech Stack & <span className="text-primary">Expertise</span>
+            {t.skills.heading1} <span className="text-primary">{t.skills.heading2}</span>
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {categories.map((cat, ci) => (
+          {t.skills.categories.map((cat, ci) => (
             <motion.div
-              key={cat.title}
+              key={ci}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ delay: 0.1 * ci, duration: 0.5 }}
